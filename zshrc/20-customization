@@ -1,0 +1,58 @@
+# -----------------------------------------------------
+# CUSTOMIZATION
+# -----------------------------------------------------
+# POSH=agnoster
+
+# -----------------------------------------------------
+# oh-myzsh themes: https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# -----------------------------------------------------
+ZSH_THEME="refined"
+
+# -----------------------------------------------------
+# oh-myzsh plugins
+# -----------------------------------------------------
+plugins=(
+    git
+    sudo
+    web-search
+    archlinux
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    # fast-syntax-highlighting
+    copyfile
+    copybuffer
+    dirhistory
+    z
+)
+
+# Set-up oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+# -----------------------------------------------------
+# Set-up FZF key bindings (CTRL R for fuzzy history finder)
+# -----------------------------------------------------
+source <(fzf --zsh)
+
+
+# Zsh history configuration
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt append_history         # Append to history instead of overwriting
+setopt hist_ignore_all_dups   # Ignore all duplicates in history
+setopt hist_ignore_space      # Ignore commands starting with a space
+setopt hist_reduce_blanks     # Remove unnecessary blanks from commands
+setopt hist_verify            # Show command before executing it from history
+setopt share_history          # Share history between all sessions# setopt hist_ignore_all_dups
+# -----------------------------------------------------
+# Prompt
+# -----------------------------------------------------
+# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
+# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/themes/bubbles.omp.json)"
+# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/EDM115-newline.omp.json)"
+# Shipped Theme
+# eval "$(oh-my-posh init zsh --config /usr/share/oh-my-posh/themes/agnoster.omp.json)"
+
+# bun completions
+[ -s "/home/tylerluu/.bun/_bun" ] && source "/home/tylerluu/.bun/_bun"
+

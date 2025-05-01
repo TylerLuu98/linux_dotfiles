@@ -1,0 +1,160 @@
+# -----------------------------------------------------
+# ALIASES
+# -----------------------------------------------------
+
+# -----------------------------------------------------
+# General
+# -----------------------------------------------------
+alias c='clear'
+alias nf='fastfetch'
+alias pf='fastfetch'
+alias ff='fastfetch'
+# alias ls='eza -a --icons=always'
+# alias ll='eza -al --icons=always'
+# alias lt='eza -a --tree --level=1 --icons=always'
+alias shutdown='systemctl poweroff'
+alias nv='$EDITOR'
+alias vi='$EDITOR'
+# alias ts='~/.config/ml4w/scripts/snapshot.sh'
+alias wifi='nmtui'
+# alias cleanup='~/.config/ml4w/scripts/cleanup.sh'
+alias zshconfig='source ~/.zshrc'
+# alias code='code --disable-gpu-sandbox --use-gl=desktop'
+# alias google='google-chrome-stable --disable-gpu-sandbox --use-gl=desktop'
+
+
+# -----------------------------------------------------
+# ML4W Apps
+# -----------------------------------------------------
+# alias ml4w='com.ml4w.welcome'
+# alias ml4w-settings='com.ml4w.dotfilessettings'
+# alias ml4w-hyprland='com.ml4w.hyprland.settings'
+# alias ml4w-options='ml4w-hyprland-setup -m options'
+# alias ml4w-sidebar='ags toggle sidebar'
+# alias ml4w-diagnosis='~/.config/hypr/scripts/diagnosis.sh'
+# alias ml4w-hyprland-diagnosis='~/.config/hypr/scripts/diagnosis.sh'
+# alias ml4w-qtile-diagnosis='~/.config/ml4w/qtile/scripts/diagnosis.sh'
+# alias ml4w-update='~/.config/ml4w/update.sh'
+
+# -----------------------------------------------------
+# Window Managers
+# -----------------------------------------------------
+
+# alias Qtile='startx'
+# Hyprland with Hyprland
+
+# -----------------------------------------------------
+# Scripts
+# -----------------------------------------------------
+# alias ascii='~/.config/ml4w/scripts/figlet.sh'
+
+# -----------------------------------------------------
+# System
+# -----------------------------------------------------
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+# -----------------------------------------------------
+# Qtile
+# -----------------------------------------------------
+alias res1='xrandr --output DisplayPort-0 --mode 2560x1440 --rate 120'
+alias res2='xrandr --output DisplayPort-0 --mode 1920x1080 --rate 120'
+alias setkb='setxkbmap de;echo "Keyboard set back to de."'
+
+# -----------------------------------------------------
+# vim
+# -----------------------------------------------------
+# alias vi="vim"
+# alias nv="nvim"
+
+# -----------------------------------------------------
+# ls
+# -----------------------------------------------------
+# alias l="eza -l --icons=always"
+alias ls="eza -a --icons=always --sort='type'"
+alias ll="eza -al --icons=always --sort='type'"
+alias lt="eza -a --tree --level=1 --icons=always --sort='type'"
+# alias ls='eza -a --icons=always'
+# alias ll='eza -al --icons=always'
+# alias lt='eza -a --tree --level=1 --icons=always'
+
+# -----------------------------------------------------
+#alias for toggle config
+# -----------------------------------------------------
+alias zshcf="source ~/.zshrc"
+
+# -----------------------------------------------------
+#du
+# -----------------------------------------------------
+# alias du='du -h --max-depth=1'
+alias du1='sudo du -hxd 1 | sort -h'
+alias du2='sudo du -sh --exclude=/mnt /* --total | sort --human-numeric-sort'
+
+
+
+# -----------------------------------------------------
+#git 
+# -----------------------------------------------------
+alias ga='git add'
+alias gb='git branch'
+alias gc='git commit'
+alias gco='git checkout'
+alias gcl='git clone'
+alias gd='git diff'
+alias gl='git log'
+alias gm='git merge'
+alias gi='git init'
+alias gp='git pull'
+alias gpu='git push'
+alias gst='git status'
+
+# -----------------------------------------------------
+#alias alacrity
+# -----------------------------------------------------
+alias alacritty-open='alacritty msg create-window' 
+
+# -----------------------------------------------------
+#gnome
+# -----------------------------------------------------
+# alias nightlight-on='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true'
+# alias nightlight-off='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false'
+
+# -----------------------------------------------------
+#rsync 
+# -----------------------------------------------------
+alias rsync-copy='rsync -avh --progress'
+
+# -----------------------------------------------------
+#tmux
+# -----------------------------------------------------
+alias tm='tmux'
+alias tml='tmux list-sessions'
+alias tmn='tmux new-session'
+alias tmks='tmux kill-session -a'
+
+
+
+# -----------------------------------------------------
+#kitty
+# -----------------------------------------------------
+alias kitty-title='kitty @ set-window-title'
+
+# -----------------------------------------------------
+#ranger
+# -----------------------------------------------------
+# alias r="ranger"
+
+# -----------------------------------------------------
+#lazygit
+# -----------------------------------------------------
+alias lzg="lazygit"
+alias lzd="lazydocker"
+
+
+# -----------------------------------------------------
+#pnpm
+# -----------------------------------------------------
+#
+alias build="pnpm build"
+alias dev="pnpm dev"
+alias start="pnpm start"
+alias clean="pnpm clean"

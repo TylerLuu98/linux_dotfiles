@@ -1,0 +1,18 @@
+# -----------------------------------------------------
+# INIT
+# -----------------------------------------------------
+
+# -----------------------------------------------------
+# Exports
+# -----------------------------------------------------
+export EDITOR=nvim
+export PATH="/usr/lib/ccache/bin/:$PATH"
+
+# Fcitx
+# export GTK_IM_MODULE=fcitx5
+export QT_IM_MODULE=fcitx5
+export XMODIFIERS=@im=fcitx5
+
+# Deno
+. "/home/tylerluu/.deno/env"
+

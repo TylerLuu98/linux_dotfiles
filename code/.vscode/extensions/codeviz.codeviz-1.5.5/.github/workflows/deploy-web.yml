@@ -1,0 +1,52 @@
+name: Deploy CodeViz to Web
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout extension repo
+        uses: actions/checkout@v3
+        with:
+          repository: EdisonLabs-Inc/codeviz-extension
+          token: ${{ secrets.DEPLOY_PAT }}
+          path: codeviz-extension
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          
+      - name: Build extension
+        run: |
+          cd codeviz-extension
+          npm install
+          npm run build-web
+          
+      - name: Checkout GitHub1s repo
+        uses: actions/checkout@v3
+        with:
+          repository: EdisonLabs-Inc/github1s-codeviz
+          token: ${{ secrets.DEPLOY_PAT }}
+          path: github1s-codeviz
+
+      - name: Copy and Build
+        run: |
+          cd github1s-codeviz
+          rm -rf extensions/codeviz
+          mkdir -p extensions/codeviz
+          cp -r ../codeviz-extension/* extensions/codeviz/
+          yarn install
+          # This will run the modified build.sh script
+          yarn build
+          
+      - name: Commit and push changes
+        run: |
+          cd github1s-codeviz
+          git config user.name "mccallw23"
+          git config user.email "william.l.mccall.23@dartmouth.edu"
+          git add .
+          git commit -m "Update CodeViz extension and build"
+          git push

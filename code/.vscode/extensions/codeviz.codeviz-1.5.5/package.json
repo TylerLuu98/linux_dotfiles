@@ -1,0 +1,266 @@
+{
+	"name": "codeviz",
+	"displayName": "CodeViz | Visual codebase maps",
+	"publisher": "CodeViz",
+	"description": "Fast codebase understanding and navigation",
+	"icon": "media/main-icon.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/EdisonLabs-Inc/CodeViz-Public/issues"
+	},
+	"version": "1.5.5",
+	"engines": {
+		"vscode": "^1.60.0"
+	},
+	"categories": [
+		"Visualization",
+		"AI",
+		"Chat",
+		"Programming Languages",
+		"Education",
+		"Machine Learning"
+	],
+	"keywords": [
+		"visual",
+		"search",
+		"claude",
+		"sonnet",
+		"flash",
+		"ai",
+		"copilot"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "CodeViz",
+			"properties": {
+				"codeviz.autoUpdate": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically update CodeViz when a new version is available. You can find this setting by searching for 'CodeViz' in the Settings UI.",
+					"scope": "application"
+				},
+				"codeviz.customApiKey": {
+					"type": "string",
+					"default": "",
+					"description": "Custom API key for LLM requests. If provided, this key will be used instead of CodeViz's key for LLM requests.",
+					"scope": "application"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "codeviz.disableAutoOpen",
+				"title": "Disable Auto Open",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.enableAutoOpen",
+				"title": "Enable Auto Open",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.openDetachedWindow",
+				"title": "CodeViz: Open in Separate Window",
+				"icon": "$(empty-window)"
+			},
+			{
+				"command": "codeviz.focusWebview",
+				"title": "Focus CodeViz Panel"
+			},
+			{
+				"command": "codeviz.toggleBeta",
+				"title": "Toggle Beta Features",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.setCustomApiKey",
+				"title": "Set Custom API Key",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.redeemLicense",
+				"title": "Enter License Key",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.clearCustomApiKey",
+				"title": "CodeViz: Clear Custom API Key",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.showWebview",
+				"title": "Show CodeViz Webview",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.regenerateArchitecture",
+				"title": "Regenerate Architecture",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.checkSubscription",
+				"title": "Check Subscription Status",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.subscribe",
+				"title": "Subscribe to CodeViz",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.unsubscribe",
+				"title": "Unsubscribe from CodeViz",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.checkForUpdates",
+				"title": "Check for Updates",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.disableAutoUpdates",
+				"title": "Disable Auto Updates",
+				"category": "CodeViz"
+			},
+			{
+				"command": "codeviz.enableAutoUpdates",
+				"title": "Enable Auto Updates",
+				"category": "CodeViz"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "codeviz.focusWebview",
+				"key": "ctrl+tab+left",
+				"mac": "cmd+tab+left",
+				"when": "editorTextFocus"
+			}
+		],
+		"uri-handlers": [
+			"CodeViz.codeviz"
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "codeviz-sidebar",
+					"title": "CodeViz",
+					"icon": "media/webview-icon.png"
+				}
+			]
+		},
+		"views": {
+			"codeviz-sidebar": [
+				{
+					"icon": "media/webview-icon.png",
+					"type": "webview",
+					"id": "codeviz.graphView",
+					"name": "Codebase Map"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"build-web": "cross-env TARGET=web webpack && node scripts/create-symlinks.js",
+		"run-in-browser-debug": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. . --open-devtools --verbose",
+		"run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
+		"vscode:prepublish": "webpack --mode production",
+		"compile": "webpack",
+		"watch": "webpack --watch",
+		"package": "webpack --mode production --devtool hidden-source-map && vsce package",
+		"compile-tests": "tsc -p . --outDir dist",
+		"watch-tests": "tsc -p . -w --outDir dist",
+		"pretest": "npm run compile-tests && npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./dist/test/runTest.js",
+		"prebuild": "webpack --mode development",
+		"compile-web": "cross-env TARGET=web webpack",
+		"watch-web": "cross-env TARGET=web webpack --watch",
+		"package-web": "cross-env TARGET=web NODE_ENV=production webpack"
+	},
+	"devDependencies": {
+		"@types/graphlib": "^2.1.12",
+		"@types/lodash": "^4.17.14",
+		"@types/node": "20.x",
+		"@types/react": "^19.0.7",
+		"@types/react-dom": "^19.0.2",
+		"@types/semver": "^7.5.8",
+		"@types/vscode": "^1.60.0",
+		"@typescript-eslint/eslint-plugin": "^7.14.1",
+		"@typescript-eslint/parser": "^7.11.0",
+		"@vscode/test-cli": "^0.0.9",
+		"@vscode/test-web": "^0.0.65",
+		"autoprefixer": "^10.4.20",
+		"buffer": "^6.0.3",
+		"copy-webpack-plugin": "^11.0.0",
+		"cross-env": "^7.0.3",
+		"crypto-browserify": "^3.12.1",
+		"css-loader": "^7.1.2",
+		"eslint": "^8.57.0",
+		"file-loader": "^6.2.0",
+		"https-browserify": "^1.0.0",
+		"node-loader": "^2.1.0",
+		"os-browserify": "^0.3.0",
+		"path-browserify": "^1.0.1",
+		"postcss": "^8.5.2",
+		"postcss-loader": "^8.1.1",
+		"process": "^0.11.10",
+		"stream-browserify": "^3.0.0",
+		"stream-http": "^3.2.0",
+		"style-loader": "^4.0.0",
+		"tailwindcss": "^3.2.7",
+		"ts-loader": "^9.5.1",
+		"typescript": "^5.4.5",
+		"url": "^0.11.4",
+		"util": "^0.12.5",
+		"vm-browserify": "^1.1.2",
+		"webpack": "^5.98.0",
+		"webpack-cli": "^5.1.4",
+		"webpack-dev-server": "^5.2.0"
+	},
+	"dependencies": {
+		"@anthropic-ai/sdk": "^0.24.3",
+		"@google-cloud/vertexai": "^1.10.0",
+		"@huggingface/transformers": "^3.5.0",
+		"@sentry/browser": "^8.47.0",
+		"@sentry/node": "^8.38.0",
+		"@sentry/react": "^8.34.0",
+		"@types/intro.js": "^5.1.5",
+		"@types/uuid": "^10.0.0",
+		"elkjs": "^0.9.3",
+		"fast-fuzzy": "^1.12.0",
+		"fuzzysort": "^3.1.0",
+		"graphlib": "^2.1.8",
+		"ignore": "^6.0.2",
+		"intro.js": "^7.2.0",
+		"lodash": "^4.17.21",
+		"lucide-react": "^0.436.0",
+		"mermaid": "^11.1.1",
+		"node-fetch": "^3.3.2",
+		"node-sqlite3-wasm": "^0.8.39",
+		"npm": "^11.0.0",
+		"posthog-js": "^1.181.0",
+		"posthog-node": "^4.2.1",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"react-icons": "^5.5.0",
+		"react-resizable": "^3.0.5",
+		"reactflow": "^11.11.4",
+		"semver": "^7.6.3",
+		"terser-webpack-plugin": "^5.3.10",
+		"uuid": "^10.0.0",
+		"web-tree-sitter": "^0.24.7"
+	},
+	"optionalDependencies": {
+		"bufferutil": "^4.0.9",
+		"utf-8-validate": "^6.0.5"
+	},
+	"__metadata": {
+		"installedTimestamp": 1746083712083,
+		"targetPlatform": "undefined",
+		"size": 19126123
+	}
+}

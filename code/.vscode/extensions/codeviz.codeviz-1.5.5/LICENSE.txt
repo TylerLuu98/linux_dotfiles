@@ -1,0 +1,40 @@
+END-USER LICENSE AGREEMENT (EULA)
+
+This End-User License Agreement ("EULA") is a legal agreement between you and EdisonLabs, Inc. ("Licensor") for the use of the CodeViz Visual Studio Code Extension ("Extension").
+
+1. GRANT OF LICENSE
+Subject to the terms of this EULA, Licensor grants you a non-exclusive, non-transferable, non-sublicensable license to install and use the Extension for your personal or internal business purposes.
+
+2. RESTRICTIONS
+You agree not to, and you will not permit others to:
+- Modify, reverse engineer, decompile, or disassemble the Extension.
+- Distribute, sell, lease, rent, sublicense, or otherwise transfer the Extension.
+- Use the Extension to develop a competing product or service.
+- Use the Extension in any unlawful manner, for any unlawful purpose, or in any manner inconsistent with this EULA.
+
+3. OWNERSHIP
+The Extension is licensed, not sold. Licensor retains all rights, title, and interest in and to the Extension, including all intellectual property rights therein.
+
+4. TERM AND TERMINATION
+This EULA is effective from the date you first install or use the Extension and will continue until terminated. Licensor may terminate this EULA at any time if you fail to comply with any term(s) hereof. Upon termination, you must cease all use of the Extension and destroy all copies of the Extension.
+
+5. DISCLAIMER OF WARRANTIES
+The Extension is provided "as is" and "as available," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. Licensor does not warrant that the Extension will meet your requirements or that its operation will be uninterrupted or error-free.
+
+6. LIMITATION OF LIABILITY
+To the maximum extent permitted by applicable law, in no event shall Licensor be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, business interruption, loss of information, or any other pecuniary loss) arising out of the use of or inability to use the Extension, even if Licensor has been advised of the possibility of such damages.
+
+7. SUPPORT AND UPDATES
+Licensor may, at its sole discretion, provide you with support or updates for the Extension. Any such support or updates provided by Licensor shall be governed by this EULA.
+
+8. PAYMENT TERMS
+If the Extension is provided for a fee, you agree to pay all applicable fees as set forth at the time of your purchase. All payments are non-refundable except as required by law.
+
+9. GOVERNING LAW
+This EULA shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law principles.
+
+By installing or using the Extension, you agree to be bound by the terms of this EULA. If you do not agree to the terms of this EULA, do not install or use the Extension.
+
+If you have any questions about this EULA, please contact:
+
+EdisonLabs, Inc.

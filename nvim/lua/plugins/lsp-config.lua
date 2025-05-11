@@ -1,11 +1,12 @@
 return {
+  -- Mason installer
   {
     "williamboman/mason.nvim",
     requires = {
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
     },
-    --NOTE: mason border setup
+    -- NOTE: mason border setup
     config = function()
       require("mason").setup({
         ui = {
@@ -19,32 +20,30 @@ return {
       })
     end,
   },
-  -- NOTE: nvim-lspconfig
+
+  -- LSP configuration
   {
     "neovim/nvim-lspconfig",
     event = "LazyFile",
     dependencies = {
       "mason.nvim",
-      { "williamboman/mason-lspconfig.nvim", config = function() end },
+      {
+        "williamboman/mason-lspconfig.nvim",
+        -- just call setup here; we'll pull the list of servers later
+        config = function()
+          require("mason-lspconfig").setup({})
+        end,
+      },
     },
     opts = function()
       ---@class PluginLspOpts
       local ret = {
-        -- options for vim.diagnostic.config()
-        ---@type vim.diagnostic.Opts
-        ---
+        -- Diagnostic settings
         diagnostics = {
           underline = true,
           update_in_insert = false,
           virtual_text = false,
-          -- virtual_text = {
-          --   spacing = 4,
-          --   source = "if_many",
-          --   prefix = "●",
-          -- },
-          float = {
-            border = "rounded",
-          },
+          float = { border = "rounded" },
           severity_sort = true,
           signs = {
             text = {
@@ -58,11 +57,11 @@ return {
 
         inlay_hints = {
           enabled = true,
-          exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
+          exclude = { "vue" },
         },
-        codelens = {
-          enabled = false,
-        },
+
+        codelens = { enabled = false },
+
         capabilities = {
           workspace = {
             fileOperations = {
@@ -76,39 +75,26 @@ return {
           formatting_options = nil,
           timeout_ms = nil,
         },
-        -- LSP Server Settings
+
         ---@type lspconfig.options
         servers = {
+          -- your hand-picked defaults
           eslint = {},
           clangd = {},
           cssls = {
             settings = {
-              css = { validate = true, lint = {
-                unknownAtRules = "ignore",
-              } },
-              scss = { validate = true, lint = {
-                unknownAtRules = "ignore",
-              } },
-              less = { validate = true, lint = {
-                unknownAtRules = "ignore",
-              } },
+              css = { validate = true, lint = { unknownAtRules = "ignore" } },
+              scss = { validate = true, lint = { unknownAtRules = "ignore" } },
+              less = { validate = true, lint = { unknownAtRules = "ignore" } },
             },
           },
           lua_ls = {
             settings = {
               Lua = {
-                workspace = {
-                  checkThirdParty = false,
-                },
-                codeLens = {
-                  enable = true,
-                },
-                completion = {
-                  callSnippet = "Replace",
-                },
-                doc = {
-                  privateName = { "^_" },
-                },
+                workspace = { checkThirdParty = false },
+                codeLens = { enable = true },
+                completion = { callSnippet = "Replace" },
+                doc = { privateName = { "^_" } },
                 hint = {
                   enable = true,
                   setType = false,
@@ -121,8 +107,8 @@ return {
             },
           },
         },
-        -- you can do any additional lsp server setup here
-        -- return true if you don't want this server to be setup with lspconfig
+
+        -- custom per-server setup
         ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
         setup = {
           clangd = function(_, opts)
@@ -137,22 +123,24 @@ return {
               end
             end)
           end,
-          -- example to setup with typescript.nvim
-          -- tsserver = function(_, opts)
-          --   require("typescript").setup({ server = opts })
-          --   return true
-          -- end,
-          -- Specify * to use this function as a fallback for any server
+          -- fallback example:
           -- ["*"] = function(server, opts) end,
         },
       }
 
-      local Keys = require("lazyvim.plugins.lsp.keymaps").get()
+      -- Automatically include *all* Mason-installed LSP servers
+      local mlsc = require("mason-lspconfig")
+      for _, server in ipairs(mlsc.get_installed_servers()) do
+        ret.servers[server] = ret.servers[server] or {}
+      end
 
+      -- add or tweak keymaps if needed
+      local Keys = require("lazyvim.plugins.lsp.keymaps").get()
       vim.list_extend(Keys, {
         { "gr", "<Nop>" },
         { "gI", "<Nop>" },
       })
+
       return ret
     end,
   },

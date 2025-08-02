@@ -4,7 +4,7 @@
 local opt = vim.opt
 local global = vim.g
 
--- opt.wrap = true
+opt.wrap = true
 opt.relativenumber = false
 
 global.lazyvim_blink_main = false

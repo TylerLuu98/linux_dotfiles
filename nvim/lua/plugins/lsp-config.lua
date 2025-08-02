@@ -1,11 +1,12 @@
 return {
   -- Mason installer
   {
-    "williamboman/mason.nvim",
-    requires = {
-      "williamboman/mason-lspconfig.nvim",
-      "neovim/nvim-lspconfig",
-    },
+    "mason-org/mason.nvim",
+    version = "v2.0.0",
+    -- requires = {
+    --   "williamboman/mason-lspconfig.nvim",
+    --   "neovim/nvim-lspconfig",
+    -- },
     -- NOTE: mason border setup
     config = function()
       require("mason").setup({
@@ -25,16 +26,16 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = "LazyFile",
-    dependencies = {
-      "mason.nvim",
-      {
-        "williamboman/mason-lspconfig.nvim",
-        -- just call setup here; we'll pull the list of servers later
-        config = function()
-          require("mason-lspconfig").setup({})
-        end,
-      },
-    },
+    -- dependencies = {
+    --   "mason.nvim",
+    --   {
+    --     "williamboman/mason-lspconfig.nvim",
+    --     -- just call setup here; we'll pull the list of servers later
+    --     config = function()
+    --       require("mason-lspconfig").setup({})
+    --     end,
+    --   },
+    -- },
     opts = function()
       ---@class PluginLspOpts
       local ret = {

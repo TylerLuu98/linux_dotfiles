@@ -38,4 +38,4 @@ function y() {
 # delete zcompdump
 # -----------------------------------------------------
 
-rm -f ~/.zcompdump*
+# rm -f ~/.zcompdump*

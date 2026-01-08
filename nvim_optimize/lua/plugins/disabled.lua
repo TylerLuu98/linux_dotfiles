@@ -13,7 +13,7 @@ return {
   { "goolord/alpha-nvim",        enabled = false },
 
   -- Tắt thanh trạng thái dưới cùng (nếu muốn tối ưu cực đoan 10ms)
-  { "nvim-lualine/lualine.nvim", enabled = false },
+  -- { "nvim-lualine/lualine.nvim", enabled = false },
 
   -- Tắt hiển thị phím bấm (Which-key) nếu bạn đã thuộc phím (tăng tốc đáng kể)
   -- { "folke/which-key.nvim",    enabled = false },
@@ -32,7 +32,7 @@ return {
 
   -- [LỰA CHỌN] Tắt Icons (Tiết kiệm ~5.19ms - RẤT NHIỀU)
   -- Nếu bạn chấp nhận editor chỉ toàn chữ (không icon folder, file type), bỏ comment dòng dưới.
-  { "nvim-mini/mini.icons",      enabled = false },
+  -- { "nvim-mini/mini.icons",      enabled = false },
 
   -- Tắt plugin Web Dev không dùng cho C++
   { "windwp/nvim-ts-autotag",    enabled = false }, -- Tiết kiệm 1.33ms

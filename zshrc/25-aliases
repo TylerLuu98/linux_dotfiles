@@ -147,7 +147,7 @@ alias kitty-title='kitty @ set-window-title'
 #lazygit
 # -----------------------------------------------------
 alias lzg="lazygit"
-alias lzd="lazydocker"
+alias lzd="sudo lazydocker"
 
 
 # -----------------------------------------------------

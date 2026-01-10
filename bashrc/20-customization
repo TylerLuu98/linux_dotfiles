@@ -18,5 +18,4 @@ POSH=agnoster
 # Deno
 # -----------------------------------------------------
 # [[ -f ~/.bashrc ]] && . ~/.bashrc
-. "/home/tylerluu/.deno/env"
 

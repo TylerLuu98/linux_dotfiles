@@ -1,0 +1,185 @@
+# # ~/.config/starship.toml
+#
+# add_newline = true
+# command_timeout = 1000
+#
+# # Ký tự nhắc lệnh (Thay đổi màu khi có lỗi)
+# [character]
+# success_symbol = "[➜](bold green)"
+# error_symbol = "[✗](bold red)"
+# vimcmd_symbol = "[N](bold blue)" # Hiển thị khi ở chế độ Normal (Vim mode)
+#
+# # Hiển thị thư mục
+# [directory]
+# truncation_length = 3
+# style = "bold cyan"
+#
+# # Git (Chỉ hiện khi vào thư mục git)
+# [git_branch]
+# symbol = "🌱 "
+# style = "bold purple"
+#
+# [git_status]
+# style = "bold red"
+# conflicted = "🏳"
+# ahead = "🏎💨"
+# behind = "🐢"
+# diverged = "😵"
+# untracked = "🛤"
+# stashed = "📦"
+# modified = "📝"
+# # staged = "[++\($count\)](green)"
+#
+# # Ngôn ngữ lập trình (Chỉ hiện khi có file tương ứng)
+# [nodejs]
+# symbol = "⬢ "
+# [python]
+# symbol = "🐍 "
+# [rust]
+# symbol = "🦀 "
+# [golang]
+# symbol = "🐹 "
+# [lua]
+# symbol = "🌙 "
+#
+# # Ẩn tên user/hostname nếu ở máy local (cho gọn)
+# [username]
+# show_always = false
+#
+# [hostname]
+# ssh_only = true
+# 
+# 
+# ~/.config/starship.toml
+
+# ~/.config/starship.toml
+
+# ------------------------------------------------------------------------------
+# GLOBAL SETTINGS (FIX KHOẢNG TRỐNG TẠI ĐÂY)
+# ------------------------------------------------------------------------------
+add_newline = true  # <--- Xóa dòng trống vô nghĩa giữa các lệnh
+command_timeout = 500
+
+# Layout "Compact 2-Line":
+# Dòng 1: Tất cả thông tin (User, Dir, Git, Language...)
+# Dòng 2: Ký tự nhắc lệnh (Character)
+format = """
+$username$hostname$directory$git_branch$git_status$git_state$c$cmake$rust$golang$nodejs$python$docker_context$package$cmd_duration
+$character"""
+
+# ------------------------------------------------------------------------------
+# SYSTEM INFO
+# ------------------------------------------------------------------------------
+
+[username]
+style_user = "bold green"
+style_root = "bold red"
+format = "[$user]($style) "
+show_always = true
+
+# NÂNG CẤP: Chỉ hiện tên máy khi SSH (cho gọn)
+[hostname]
+ssh_only = true
+format = "at [$hostname](bold purple) "
+trim_at = "."
+disabled = false
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " 🔒"
+home_symbol = "~"
+
+# ------------------------------------------------------------------------------
+# GIT CONFIGURATION
+# ------------------------------------------------------------------------------
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "on [$symbol$branch]($style) "
+
+[git_status]
+style = "bold red"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+conflicted = "🏳"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${count}⇣${count}"
+up_to_date = "" # Đã sửa thành rỗng cho gọn
+untracked = "?${count}"
+stashed = "📦${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+
+# ------------------------------------------------------------------------------
+# PROGRAMMING LANGUAGES (HIỆN LIỀN MẠCH TRÊN DÒNG 1)
+# ------------------------------------------------------------------------------
+
+[c]
+symbol = " "
+style = "bold blue"
+format = "via [$symbol($version )]($style)"
+detect_extensions = ["c", "cpp", "h", "hpp"]
+
+[cmake]
+symbol = "△ "
+style = "bold green"
+format = "built [$symbol($version )]($style)"
+
+[rust]
+symbol = " "
+style = "bold red"
+format = "via [$symbol($version )]($style)"
+
+[python]
+symbol = "🐍 "
+style = "bold yellow"
+format = 'via [${symbol}(${version} )(\($virtualenv\) )]($style)'
+pyenv_prefix = "venv "
+detect_extensions = ["py"]
+
+[nodejs]
+symbol = "⬢ "
+style = "bold green"
+format = "via [$symbol($version )]($style)"
+
+[golang]
+symbol = " "
+style = "bold cyan"
+format = "via [$symbol($version )]($style)"
+
+[docker_context]
+symbol = " "
+style = "blue bold"
+format = "via [$symbol$context]($style) "
+only_with_files = true
+
+[package]
+symbol = "📦 "
+style = "208"
+format = "is [$symbol$version]($style) "
+
+# ------------------------------------------------------------------------------
+# UTILITIES & PROMPT
+# ------------------------------------------------------------------------------
+
+[cmd_duration]
+min_time = 2000
+style = "bold yellow"
+format = "took [$duration]($style) "
+
+# NÂNG CẤP: Logic hiển thị Prompt cho Vi Mode (Fish/Neovim)
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+# Khi bấm Esc để vào Normal mode (Fish Vi Mode)
+vimcmd_symbol = "[❮](bold blue)"
+vimcmd_replace_one_symbol = "[❮](bold purple)"
+vimcmd_replace_symbol = "[❮](bold purple)"
+vimcmd_visual_symbol = "[❮](bold yellow)"

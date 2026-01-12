@@ -1,0 +1,198 @@
+# =================================================
+#  ALACRITTY ULTIMATE CONFIG - CACHYOS / KDE
+#  Optimized for C++ Developers
+# =================================================
+
+[general]
+live_config_reload = true
+import = [
+  # "~/.config/alacritty/themes/themes/tokyo_night_enhanced.toml"
+  "~/.config/alacritty/themes/themes/kitty.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+
+# --- 1. CẤU HÌNH CỬA SỔ (WINDOW) ---
+[window]
+# Padding vừa đủ để nội dung không dính sát viền
+padding = { x = 10, y = 10 }
+
+# Độ trong suốt & Mờ (Blur) - Tạo hiệu ứng kính sang trọng trên KDE
+opacity = 0.80
+blur = true
+
+# Tiêu đề & Trang trí
+title = "Alacritty Terminal"
+dynamic_title = true
+decorations = "full"
+
+# Class (Giúp KDE nhận diện icon đúng)
+class = { instance = "Alacritty", general = "Alacritty" }
+
+# Khởi động ở chế độ cửa sổ bình thường (có thể đổi thành "Maximized" nếu thích)
+startup_mode = "Windowed"
+
+# Tối ưu render để giảm độ trễ
+[debug]
+render_timer = false
+persistent_logging = false
+
+# --- 2. FONT CHỮ (FONT RENDERING) ---
+[font]
+size = 12.5 # Tăng nhẹ 0.5 để mắt đỡ mỏi hơn size 12
+builtin_box_drawing = true
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+# [PRO TIP] Tinh chỉnh khoảng cách dòng. 
+# Giúp các ký tự icon (Nerd Font) không bị cắt ngọn và code thoáng hơn.
+[font.offset]
+x = 0
+y = 1
+
+# [PRO TIP] Chế độ làm mượt font trên màn hình LCD/Laptop
+# Giúp chữ không bị răng cưa
+[font.glyph_offset]
+x = 0
+y = 0
+
+# --- 3. CON TRỎ ---
+[cursor]
+# Đổi sang dạng KHỐI (Block) và nhấp nháy - Chuẩn của Pro Dev/Vim User
+# style = { shape = "Block", blinking = "On" }
+# unfocused_hollow = true
+# thickness = 0.2
+style = "Underline"
+vi_mode_style = "None"
+unfocused_hollow = true
+thickness = 0.15
+
+
+[colors.cursor]
+text = "#1a1b26"
+cursor = "#c0caf5"
+
+# --- 4. HINTS (GỢI Ý THÔNG MINH - PRO UPGRADE) ---
+[hints]
+alphabet = "jfkdls;ahgurieowpq"
+
+# 4.1. Mở Link/File (Ctrl + Shift + U)
+[[hints.enabled]]
+binding = { key = "U", mods = "Control|Shift" }
+command = "xdg-open"
+hyperlinks = true
+post_processing = true
+mouse = { enabled = true }
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\\u0000-\\u001F\\u007F-\\u009F<>\"\\s{-}\\^⟨⟩`]+"
+
+# 4.2. [NEW] Copy Git Hash (Ctrl + Shift + H)
+# Cực tiện cho C++ Dev khi cần cherry-pick hoặc checkout commit ID
+[[hints.enabled]]
+binding = { key = "H", mods = "Control|Shift" }
+action = "Copy"
+mouse = { enabled = false }
+regex = "[0-9a-f]{7,40}" # Nhận diện mã hash git
+
+# --- 5. CUỘN & LỊCH SỬ ---
+[scrolling]
+history = 20000     # Tăng lên 20k dòng để debug thoải mái
+multiplier = 3
+
+# --- 6. CHUỘT & COPY ---
+[selection]
+# Semantic selection: Giúp click đúp chọn thông minh hơn (bỏ qua dấu ., /, :)
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+save_to_clipboard = true
+
+[mouse]
+hide_when_typing = true
+
+# --- 7. PHÍM TẮT (KEY BINDINGS) ---
+[keyboard]
+
+# Copy / Paste (Windows Style)
+[[keyboard.bindings]]
+key = "C"
+mods = "Control"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control"
+action = "Paste"
+
+# Ngắt lệnh (Thay thế Ctrl+C bằng Ctrl+Shift+C)
+[[keyboard.bindings]]
+chars = "\u0003"
+key = "C"
+mods = "Control|Shift"
+
+# Zoom nhanh
+[[keyboard.bindings]]
+key = "Equals"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Key0"
+mods = "Control"
+action = "ResetFontSize"
+
+# Cuộn trang
+[[keyboard.bindings]]
+key = "PageUp"
+mods = "Shift"
+action = "ScrollPageUp"
+
+[[keyboard.bindings]]
+key = "PageDown"
+mods = "Shift"
+action = "ScrollPageDown"
+
+# # --- [NEW] VI MODE & SEARCH (TÍNH NĂNG PRO) ---
+# # Kích hoạt chế độ Vi bằng Ctrl + Shift + Space
+# # Cho phép di chuyển con trỏ tự do để copy text ở bất cứ đâu
+# [[keyboard.bindings]]
+# key = "Space"
+# mods = "Control|Shift"
+# mode = "~Search"
+# action = "ToggleViMode"
+#
+# # Tìm kiếm (Search) text trong terminal: Ctrl + Shift + F
+# [[keyboard.bindings]]
+# key = "F"
+# mods = "Control|Shift"
+# mode = "~Search"
+# action = "SearchForward"
+#
+# [[keyboard.bindings]]
+# key = "B"
+# mods = "Control|Shift"
+# mode = "~Search"
+# action = "SearchBackward"
+#
+# # Thoát chế độ Search/Vi bằng Escape
+# [[keyboard.bindings]]
+# key = "Escape"
+# mode = "Vi|Search"
+# action = "ScrollToBottom" # Quay về dòng cuối khi thoát

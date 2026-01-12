@@ -12,6 +12,7 @@ import = [
 
 [env]
 TERM = "xterm-256color"
+WINIT_X11_SCALE_FACTOR = "1"
 
 # --- 1. CẤU HÌNH CỬA SỔ (WINDOW) ---
 [window]
@@ -40,7 +41,7 @@ persistent_logging = false
 
 # --- 2. FONT CHỮ (FONT RENDERING) ---
 [font]
-size = 12.5 # Tăng nhẹ 0.5 để mắt đỡ mỏi hơn size 12
+size = 12.5
 builtin_box_drawing = true
 
 [font.normal]
@@ -169,30 +170,3 @@ key = "PageDown"
 mods = "Shift"
 action = "ScrollPageDown"
 
-# # --- [NEW] VI MODE & SEARCH (TÍNH NĂNG PRO) ---
-# # Kích hoạt chế độ Vi bằng Ctrl + Shift + Space
-# # Cho phép di chuyển con trỏ tự do để copy text ở bất cứ đâu
-# [[keyboard.bindings]]
-# key = "Space"
-# mods = "Control|Shift"
-# mode = "~Search"
-# action = "ToggleViMode"
-#
-# # Tìm kiếm (Search) text trong terminal: Ctrl + Shift + F
-# [[keyboard.bindings]]
-# key = "F"
-# mods = "Control|Shift"
-# mode = "~Search"
-# action = "SearchForward"
-#
-# [[keyboard.bindings]]
-# key = "B"
-# mods = "Control|Shift"
-# mode = "~Search"
-# action = "SearchBackward"
-#
-# # Thoát chế độ Search/Vi bằng Escape
-# [[keyboard.bindings]]
-# key = "Escape"
-# mode = "Vi|Search"
-# action = "ScrollToBottom" # Quay về dòng cuối khi thoát

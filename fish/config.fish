@@ -11,12 +11,13 @@ set -gx TERM xterm-256color
 set -gx USE_CCACHE 1
 set -gx CCACHE_DIR "$HOME/.ccache"
 # Thêm đường dẫn cho các tool cài cục bộ (nếu có)
-fish_add_path ~/.local/bin
+# fish_add_path ~/.local/bin
 
 # =============================================================================
 # 2. INTERACTIVE SESSION
 # =============================================================================
 if status is-interactive
+    starship init fish | source # Bỏ comment nếu muốn dùng Starship
 
     # --- Dọn dẹp file rác Zsh (Tối ưu tốc độ) ---
     # Dùng tính năng glob của Fish, không cần gọi lệnh 'find'
@@ -29,6 +30,8 @@ if status is-interactive
         source /usr/share/cachyos-fish-config/cachyos-config.fish
     end
 
+    fnm env --use-on-cd | source
+
     # --- Key Bindings ---
     fish_vi_key_bindings
     # Copy/Paste hệ thống (Hỗ trợ tốt cho Wayland/X11)
@@ -36,7 +39,6 @@ if status is-interactive
     bind -M normal p fish_clipboard_paste
 
     # --- KHỞI ĐỘNG MODULES ---
-    # starship init fish | source  # Bỏ comment nếu muốn dùng Starship
     zoxide init fish | source
 
     # --- General Aliases ---

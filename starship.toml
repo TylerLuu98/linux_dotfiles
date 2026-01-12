@@ -1,185 +1,429 @@
-# # ~/.config/starship.toml
-#
-# add_newline = true
-# command_timeout = 1000
-#
-# # Ký tự nhắc lệnh (Thay đổi màu khi có lỗi)
-# [character]
-# success_symbol = "[➜](bold green)"
-# error_symbol = "[✗](bold red)"
-# vimcmd_symbol = "[N](bold blue)" # Hiển thị khi ở chế độ Normal (Vim mode)
-#
-# # Hiển thị thư mục
-# [directory]
-# truncation_length = 3
-# style = "bold cyan"
-#
-# # Git (Chỉ hiện khi vào thư mục git)
-# [git_branch]
-# symbol = "🌱 "
-# style = "bold purple"
-#
-# [git_status]
-# style = "bold red"
-# conflicted = "🏳"
-# ahead = "🏎💨"
-# behind = "🐢"
-# diverged = "😵"
-# untracked = "🛤"
-# stashed = "📦"
-# modified = "📝"
-# # staged = "[++\($count\)](green)"
-#
-# # Ngôn ngữ lập trình (Chỉ hiện khi có file tương ứng)
-# [nodejs]
-# symbol = "⬢ "
-# [python]
-# symbol = "🐍 "
-# [rust]
-# symbol = "🦀 "
-# [golang]
-# symbol = "🐹 "
-# [lua]
-# symbol = "🌙 "
-#
-# # Ẩn tên user/hostname nếu ở máy local (cho gọn)
-# [username]
-# show_always = false
-#
-# [hostname]
-# ssh_only = true
-# 
-# 
-# ~/.config/starship.toml
-
-# ~/.config/starship.toml
-
-# ------------------------------------------------------------------------------
-# GLOBAL SETTINGS (FIX KHOẢNG TRỐNG TẠI ĐÂY)
-# ------------------------------------------------------------------------------
-add_newline = true  # <--- Xóa dòng trống vô nghĩa giữa các lệnh
+"$schema" = "https://starship.rs/config-schema.json"
+format = "$all"
+right_format = ""
+continuation_prompt = "[∙](bright-black) "
+scan_timeout = 30
 command_timeout = 500
+add_newline = true
+follow_symlinks = true
 
-# Layout "Compact 2-Line":
-# Dòng 1: Tất cả thông tin (User, Dir, Git, Language...)
-# Dòng 2: Ký tự nhắc lệnh (Character)
-format = """
-$username$hostname$directory$git_branch$git_status$git_state$c$cmake$rust$golang$nodejs$python$docker_context$package$cmd_duration
-$character"""
-
-# ------------------------------------------------------------------------------
-# SYSTEM INFO
-# ------------------------------------------------------------------------------
-
-[username]
-style_user = "bold green"
-style_root = "bold red"
-format = "[$user]($style) "
-show_always = true
-
-# NÂNG CẤP: Chỉ hiện tên máy khi SSH (cho gọn)
-[hostname]
-ssh_only = true
-format = "at [$hostname](bold purple) "
-trim_at = "."
+[aws]
+format = 'on [$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
+symbol = " "  # Logo AWS chuẩn
+style = "bold yellow"
 disabled = false
 
-[directory]
+[azure]
+format = "on [$symbol($subscription)]($style) "
+symbol = " "  # Logo Azure
+style = "blue bold"
+disabled = true
+
+[battery]
+full_symbol = "󰁹 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󰂃 "
+unknown_symbol = "󰁽 "
+empty_symbol = "󰂎 "
+disabled = false
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 10
+style = "red bold"
+
+[buf]
+format = "with [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "
 style = "bold blue"
-truncation_length = 3
-truncation_symbol = "…/"
-read_only = " 🔒"
-home_symbol = "~"
+disabled = false
 
-# ------------------------------------------------------------------------------
-# GIT CONFIGURATION
-# ------------------------------------------------------------------------------
-[git_branch]
-symbol = " "
-style = "bold purple"
-format = "on [$symbol$branch]($style) "
-
-[git_status]
+[bun]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Bun
 style = "bold red"
-format = '([\[$all_status$ahead_behind\]]($style) )'
-conflicted = "🏳"
-ahead = "⇡${count}"
-behind = "⇣${count}"
-diverged = "⇕⇡${count}⇣${count}"
-up_to_date = "" # Đã sửa thành rỗng cho gọn
-untracked = "?${count}"
-stashed = "📦${count}"
-modified = "!${count}"
-staged = "+${count}"
-renamed = "»${count}"
-deleted = "✘${count}"
-
-[git_state]
-format = '[\($state( $progress_current of $progress_total)\)]($style) '
-
-# ------------------------------------------------------------------------------
-# PROGRAMMING LANGUAGES (HIỆN LIỀN MẠCH TRÊN DÒNG 1)
-# ------------------------------------------------------------------------------
+disabled = false
 
 [c]
-symbol = " "
-style = "bold blue"
-format = "via [$symbol($version )]($style)"
-detect_extensions = ["c", "cpp", "h", "hpp"]
+format = "via [$symbol($version(-$name) )]($style)"
+version_format = "v${raw}"
+style = "149 bold"
+symbol = " "
+disabled = false
+detect_extensions = ["c", "h"]
+# Sửa lại đoạn này:
+commands = [
+    ["cc", "--version"],
+    ["gcc", "--version"],
+    ["clang", "--version"]
+]
 
 [cmake]
-symbol = "△ "
-style = "bold green"
-format = "built [$symbol($version )]($style)"
-
-[rust]
-symbol = " "
-style = "bold red"
 format = "via [$symbol($version )]($style)"
-
-[python]
-symbol = "🐍 "
-style = "bold yellow"
-format = 'via [${symbol}(${version} )(\($virtualenv\) )]($style)'
-pyenv_prefix = "venv "
-detect_extensions = ["py"]
-
-[nodejs]
-symbol = "⬢ "
-style = "bold green"
-format = "via [$symbol($version )]($style)"
-
-[golang]
-symbol = " "
-style = "bold cyan"
-format = "via [$symbol($version )]($style)"
-
-[docker_context]
-symbol = " "
-style = "blue bold"
-format = "via [$symbol$context]($style) "
-only_with_files = true
-
-[package]
-symbol = "📦 "
-style = "208"
-format = "is [$symbol$version]($style) "
-
-# ------------------------------------------------------------------------------
-# UTILITIES & PROMPT
-# ------------------------------------------------------------------------------
+version_format = "v${raw}"
+symbol = "🔨"  # Logo CMake
+style = "bold blue"
+disabled = false
 
 [cmd_duration]
 min_time = 2000
-style = "bold yellow"
 format = "took [$duration]($style) "
+style = "yellow bold"
+show_milliseconds = false
+disabled = false
 
-# NÂNG CẤP: Logic hiển thị Prompt cho Vi Mode (Fish/Neovim)
-[character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[✗](bold red)"
-# Khi bấm Esc để vào Normal mode (Fish Vi Mode)
-vimcmd_symbol = "[❮](bold blue)"
-vimcmd_replace_one_symbol = "[❮](bold purple)"
-vimcmd_replace_symbol = "[❮](bold purple)"
-vimcmd_visual_symbol = "[❮](bold yellow)"
+[conda]
+truncation_length = 1
+format = "via [$symbol$environment]($style) "
+symbol = " "  # Logo Anaconda
+style = "green bold"
+ignore_base = true
+disabled = false
+
+[container]
+format = '[$symbol \[$name\]]($style) '
+symbol = " "  # Icon Container khối lập phương
+style = "red bold dimmed"
+disabled = false
+
+[cpp]
+format = "via [$symbol($version(-$name) )]($style)"
+version_format = "v${raw}"
+style = "149 bold"
+symbol = " "
+disabled = false
+detect_extensions = ["cpp", "cc", "cxx", "c++", "hpp", "hh", "hxx", "h++", "tcc"]
+# Sửa lại đoạn này:
+commands = [
+    ["c++", "--version"],
+    ["g++", "--version"],
+    ["clang++", "--version"]
+]
+
+[crystal]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Crystal
+style = "bold red"
+disabled = false
+
+[dart]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Dart
+style = "bold blue"
+disabled = false
+
+[deno]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Deno
+style = "green bold"
+disabled = false
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+read_only = " 󰌾"
+home_symbol = " ~"
+style = "cyan bold"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[docker_context]
+symbol = " "  # Logo Docker
+style = "blue bold"
+format = "via [$symbol$context]($style) "
+only_with_files = true
+disabled = false
+
+[dotnet]
+format = "via [$symbol($version )(🎯 $tfm )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo .NET
+style = "blue bold"
+heuristic = true
+disabled = false
+
+[elixir]
+format = 'via [$symbol($version \(OTP $otp_version\) )]($style)'
+version_format = "v${raw}"
+symbol = " "  # Logo Elixir
+style = "bold purple"
+disabled = false
+
+[elm]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Elm
+style = "cyan bold"
+disabled = false
+
+[erlang]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "
+style = "bold red"
+disabled = false
+
+[fortran]
+format = "via [$symbol($version(-$name) )]($style)"
+version_format = "${raw}"
+symbol = "󱈚 "  # Logo Fortran
+style = "bold purple"
+disabled = false
+
+[gcloud]
+format = 'on [$symbol$account(@$domain)(\($region\))]($style) '
+symbol = " "  # Logo Google Cloud
+style = "bold blue"
+disabled = false
+
+[git_branch]
+format = "on [$symbol$branch(:$remote_branch)]($style) "
+symbol = " "  # Icon nhánh Git
+style = "bold purple"
+disabled = false
+
+[git_commit]
+commit_hash_length = 7
+format = '[\($hash$tag\)]($style) '
+style = "green bold"
+only_detached = true
+tag_symbol = "  "
+disabled = false
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "red bold"
+disabled = false
+
+[golang]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Go
+style = "bold cyan"
+disabled = false
+
+[gradle]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Gradle
+style = "bold bright-cyan"
+disabled = false
+
+[haskell]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Haskell
+style = "bold purple"
+disabled = false
+
+[haxe]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Haxe
+style = "bold fg:202"
+disabled = false
+
+[helm]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Icon Bánh lái tàu
+style = "bold white"
+disabled = false
+
+[hostname]
+ssh_only = true
+ssh_symbol = " "
+format = "[$ssh_symbol$hostname]($style) in "
+style = "green dimmed bold"
+disabled = false
+
+[java]
+disabled = false
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+style = "red dimmed"
+symbol = " "  # Logo Java (Cốc cà phê)
+
+[jobs]
+threshold = 1
+format = "[$symbol$number]($style) "
+symbol = " "
+style = "bold blue"
+disabled = false
+
+[julia]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Julia
+style = "bold purple"
+disabled = false
+
+[kotlin]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Kotlin
+style = "bold blue"
+disabled = false
+
+[kubernetes]
+symbol = "󱃾 "  # Logo Kubernetes
+format = '[$symbol$context( \($namespace\))]($style) in '
+style = "cyan bold"
+disabled = true
+
+[lua]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Lua
+style = "bold blue"
+disabled = false
+
+[memory_usage]
+threshold = 75
+format = "via $symbol[$ram( | $swap)]($style) "
+style = "white bold dimmed"
+symbol = "󰍛 "  # Icon RAM chip
+disabled = true
+
+[meson]
+format = "via [$symbol$project]($style) "
+symbol = "󰔷 "  # Logo Meson
+style = "blue bold"
+disabled = false
+
+[nim]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Nim
+style = "yellow bold"
+disabled = false
+
+[nix_shell]
+format = 'via [$symbol$state( \($name\))]($style) '
+symbol = " "  # Logo NixOS
+style = "bold blue"
+disabled = false
+
+[nodejs]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo NodeJS
+style = "bold green"
+disabled = false
+
+[ocaml]
+format = 'via [$symbol($version )(\($switch_indicator$switch_name\) )]($style)'
+version_format = "v${raw}"
+symbol = " "  # Logo OCaml
+style = "bold yellow"
+disabled = false
+
+[os]
+format = "[$symbol]($style)"
+style = "bold white"
+disabled = true # Bật cái này nếu bạn muốn hiện icon distro (Arch/Cachy)
+
+[os.symbols]
+Arch = " "
+CachyOS = " " # CachyOS dùng chung gốc Arch nên dùng icon này đẹp nhất
+Linux = " "
+Windows = " "
+Macos = " "
+Ubuntu = " "
+
+[package]
+format = "is [$symbol$version]($style) "
+symbol = "󰏗 "  # Icon gói phần mềm
+style = "208 bold"
+disabled = false
+
+[perl]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Perl
+style = "149 bold"
+disabled = false
+
+[php]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo PHP
+style = "147 bold"
+disabled = false
+
+[python]
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+version_format = "v${raw}"
+style = "yellow bold"
+symbol = " "  # Logo Python
+disabled = false
+
+[ruby]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Ruby
+style = "bold red"
+disabled = false
+
+[rust]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Rust (Con cua)
+style = "bold red"
+disabled = false
+
+[scala]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+disabled = false
+style = "red bold"
+symbol = " "  # Logo Scala
+
+[shell]
+style = "white bold"
+disabled = true
+
+[sudo]
+format = "[as $symbol]($style)"
+symbol = " "  # Icon quyền root/admin
+style = "bold blue"
+disabled = true
+
+[swift]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Swift
+style = "bold 202"
+disabled = false
+
+[terraform]
+format = "via [$symbol$workspace]($style) "
+version_format = "v${raw}"
+symbol = "󱁢 "  # Logo Terraform
+style = "bold 105"
+disabled = false
+
+[typst]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = "t "
+style = "bold #0093A7"
+disabled = false
+
+[vagrant]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Vagrant
+style = "cyan bold"
+disabled = false
+
+[zig]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = " "  # Logo Zig
+style = "bold yellow"
+disabled = false

@@ -1,22 +1,9 @@
 return {
+  -- Configure LazyVim to load gruvbox
   {
-    "folke/tokyonight.nvim",
+    "LazyVim/LazyVim",
     opts = {
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-      },
-    },
-  },
-
-  {
-    "tiagovla/tokyodark.nvim",
-    config = function(_, opts)
-      require("tokyodark").setup(opts)
-      -- vim.cmd([[colorscheme tokyodark]])
-    end,
-    opts = {
+      colorscheme = "tokyonight-night",
       transparent_background = true,
     },
   },

@@ -1,0 +1,54 @@
+# ==========================================
+# Cấu hình Lazygit cho CachyOS/Neovim User
+# File: ~/.config/lazygit/config.yml
+# ==========================================
+
+gui:
+  # 1. Giao diện & Hiển thị
+  nerdFontsVersion: "3"
+  showIcons: true
+  # Định dạng thời gian
+  timeFormat: '2006-01-02'
+  shortTimeFormat: '15:04'
+  # Giao diện cửa sổ
+  screenMode: 'normal' # Đã đổi từ 'windowSize' cũ sang 'screenMode' mới
+  border: 'rounded'
+  # Màu sắc (Theme)
+  theme:
+    activeBorderColor:
+      - green
+      - bold
+    inactiveBorderColor:
+      - white
+    optionsTextColor:
+      - blue
+    selectedLineBgColor:
+      - reverse
+  showFileTree: true
+  showRandomTip: false
+  showCommandLog: false
+git:
+  # 2. Cấu hình Git Core
+  # Dùng 'paging' thay vì 'pagers' để áp dụng Delta làm mặc định toàn cục
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  merging:
+    manualCommit: false
+  autoFetch: true
+  disableForcePushing: true
+  commit:
+    signOff: false
+# 3. Custom Commands (Phải nằm NGOÀI 'git', ngang hàng với 'gui' và 'os')
+customCommands:
+  - key: 'D'
+    description: 'View changes with Difftastic'
+    context: 'files'
+    # Dùng git difftool để hỗ trợ cả file đã stage và chưa stage
+    command: 'git difftool --no-prompt --extcmd="difft --color=always --display=side-by-side" {{.SelectedFile.Name}}'
+    output: terminal
+os:
+  # 4. Tích hợp Hệ điều hành
+  editCommand: 'nvim'
+  editCommandTemplate: '{{editor}} +{{line}} {{filename}}'
+  openLinkCommand: 'xdg-open {{link}}'

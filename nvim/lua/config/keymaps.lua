@@ -12,6 +12,7 @@ local leader_mappings = {
   -- d = '"_d',
   -- D = '"_D',
 }
+
 for key, cmd in pairs(leader_mappings) do
   keymap({ "n", "v" }, "<Leader>" .. key, cmd, opts)
 end
